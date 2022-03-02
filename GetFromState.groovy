@@ -13,7 +13,7 @@ import org.apache.log4j.Level
 def log = Logger.getLogger("PreviousStateLogger") 
 log.setLevel(Level.INFO)  // DEBUG INFO
  
-log.debug("---------- PreviousStateLogger started -----------")
+log.info("---------- PreviousStateLogger started -----------")
 
 def changeItem = ComponentAccessor.getChangeHistoryManager().getChangeItemsForField(issue, 'status')
 def result= changeItem?.fromString
@@ -34,4 +34,4 @@ final String commentBody = """Automation logging info:  ${from} ---> ${to}"""
 def author = ComponentAccessor.jiraAuthenticationContext.loggedInUser
 ComponentAccessor.commentManager.create(issue, author, commentBody, dispatchEvent)
 
-log.debug("---------- PreviousStateLogger ended -----------")
+log.info("---------- PreviousStateLogger ended -----------")
