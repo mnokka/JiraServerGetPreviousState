@@ -19,8 +19,19 @@ def changeItem = ComponentAccessor.getChangeHistoryManager().getChangeItemsForFi
 def result= changeItem?.fromString
 def size=changeItem.size()
 def from=changeItem[size-1].fromString
+def to=changeItem[size-1].toString
 
 log.debug("All previous states:${result}")
 log.debug("State array size:${size}")
 log.info("TRANSIT FROM STATE:${from}")
+log.info("TRANSIT TO STATE:${to}")
+
+// from Adaptavist Library:
+final boolean dispatchEvent = false
+// the body of the comment
+final String commentBody = """Automation logging info:  ${from} ---> ${to}"""
+// the author of the comment will be the logged in user
+def author = ComponentAccessor.jiraAuthenticationContext.loggedInUser
+ComponentAccessor.commentManager.create(issue, author, commentBody, dispatchEvent)
+
 log.debug("---------- PreviousStateLogger ended -----------")
